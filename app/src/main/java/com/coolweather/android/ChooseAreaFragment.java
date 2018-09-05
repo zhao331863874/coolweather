@@ -41,7 +41,7 @@ public class ChooseAreaFragment extends Fragment {
     private TextView titleText;
     private Button backButton;
     private ListView listView;
-    private ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter; //适配器
     private List<String> dataList = new ArrayList<>();
 
     //省列表
@@ -65,7 +65,7 @@ public class ChooseAreaFragment extends Fragment {
         backButton = (Button) view.findViewById(R.id.back_button);
         listView = (ListView) view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, dataList);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter); //传递构建好的适配器对象
 
         return view;
     }
@@ -126,7 +126,7 @@ public class ChooseAreaFragment extends Fragment {
             for(Province province : provinceList) {
                 dataList.add(province.getProvinceName());
             }
-            adapter.notifyDataSetChanged();
+            adapter.notifyDataSetChanged(); //刷新内容
             listView.setSelection(0);
             currentLevel = LEVEL_PROVINCE;
         } else { //如果数据库中没值请求地址获取数据

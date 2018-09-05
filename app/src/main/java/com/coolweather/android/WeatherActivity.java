@@ -43,6 +43,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     //下拉刷新控件
     public SwipeRefreshLayout swipeRefresh;
+    private String mWeatherId; //记录天气ID
 
     private ScrollView weatherLayout;
     private TextView titleCity; //城市名
@@ -98,23 +99,22 @@ public class WeatherActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
 
-        final String weatherId; //记录天气ID
         if(weatherString != null) {
             //有缓存是直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
-            weatherId = weather.basic.weatherId;
+            mWeatherId = weather.basic.weatherId;
             showWeatherInfo(weather);
         } else {
             //无缓存时去服务器查询天气
-            weatherId = getIntent().getStringExtra("weather_id");
+            mWeatherId = getIntent().getStringExtra("weather_id");
             weatherLayout.setVisibility(View.INVISIBLE); //隐蔽ScrollView
-            requestWeather(weatherId);
+            requestWeather(mWeatherId);
         }
         //下拉控件监听器
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() { //刷新回调
-                requestWeather(weatherId);
+                requestWeather(mWeatherId);
             }
         });
         //滑动菜单控件监听器
@@ -184,6 +184,7 @@ public class WeatherActivity extends AppCompatActivity {
                                     .edit();
                             editor.putString("weather", responseText);
                             editor.apply();
+                            mWeatherId = weather.basic.weatherId;
                             showWeatherInfo(weather);
                         } else {
                             Toast.makeText(WeatherActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();

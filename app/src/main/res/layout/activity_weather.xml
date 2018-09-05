@@ -37,11 +37,11 @@
                     android:layout_height="wrap_content"
                     android:fitsSystemWindows="true"> <!--为系统状态栏留出空间-->
 
-                    <include layout="@layout/title" />
-                    <include layout="@layout/now" />
-                    <include layout="@layout/forecast" />
-                    <include layout="@layout/aqi" />
-                    <include layout="@layout/suggestion" />
+                    <include layout="@layout/title" /> <!--导入天气界面头布局-->
+                    <include layout="@layout/now" />   <!--导入天气信息布局-->
+                    <include layout="@layout/forecast" />   <!--导入未来天气信息-->
+                    <include layout="@layout/aqi" />        <!--导入空气质量信息布局-->
+                    <include layout="@layout/suggestion" /> <!--导入生活建议信息布局-->
                 </LinearLayout>
 
             </ScrollView>
